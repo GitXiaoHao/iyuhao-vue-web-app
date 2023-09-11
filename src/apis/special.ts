@@ -1,6 +1,6 @@
 import httpInstance from "@/utils/http";
 
-const path = "/special/"
+const path = "/blogSpecial/"
 
 export function getSpecialListApi () {
     return httpInstance({

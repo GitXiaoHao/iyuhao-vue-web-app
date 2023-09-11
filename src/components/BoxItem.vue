@@ -1,20 +1,47 @@
 <template>
-  <div class="box-item">
-    <div class="cover">
-      <Cover :cover="cover" ></Cover>
+  <div :class="small ? 'small-item' : 'box-item'">
+    <div class="cover" :style="{
+      'width': coverWidth + 'px',
+      'height': coverHeight + 'px'
+    }">
+      <Cover :cover="cover"></Cover>
     </div>
-    <div class="content">
-      <div class="content-title">{{title}}</div>
-      <div class="content-summary">{{summary}}</div>
+    <div class="small-content" v-if="count != -1">
+      <div class="content-title">
+        {{ title }}
+      </div>
+      <div class="content-count">
+        {{ count }}篇
+      </div>
+    </div>
+    <div v-else class="content">
+      <div class="content-title">{{ title }}</div>
+      <div class="content-summary">{{ summary }}</div>
       <div class="content-footer">
         <div class="footer-time">
-
+          {{ time }}
         </div>
         <div class="footer-author">
-
+          <template v-if="author">
+            作者：
+            <div class="author">{{ author }}</div>
+          </template>
         </div>
         <div class="footer-special">
-
+          <template v-for="item in specialList">
+            <template v-if="item.blogSpecialId == specialId">
+              专栏：
+              <div class="special">{{ item.blogSpecialName }}</div>
+            </template>
+          </template>
+        </div>
+        <div class="footer-category">
+          <template v-if="categoryName">
+            分类：
+            <div class="category">
+              {{ categoryName }}
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -23,38 +50,76 @@
 
 <script setup lang="ts">
 import Cover from "@/components/Cover.vue";
+import {useSpecialStore} from "@/store/special";
+import {onMounted, reactive} from "vue";
+import {SpecialType} from "@/type/special";
+import {useCategoryStore} from "@/store/category";
+import {CategoryType} from "@/type/category";
 
 const props = defineProps({
+  small: {
+    type: Boolean,
+    default: false
+  },
   cover: {
     type: String
   },
-  title:  {
+  coverWidth: {
+    type: String,
+    default: '110'
+  },
+  coverHeight: {
+    type: String,
+    default: '110'
+  },
+
+  title: {
     type: String
   },
-  summary: String
+  summary: String,
+  time: String,
+  author: String,
+  specialId: String,
+  categoryName: String,
+  count: {
+    type: Number,
+    default: -1
+  }
+})
+
+const categoryStore = useCategoryStore()
+const specialStore = useSpecialStore()
+const specialList = reactive<SpecialType[]>([])
+const categoryList = reactive<CategoryType[]>([])
+const getItemData = () => {
+  Object.assign(specialList, specialStore.getSpecialList)
+  Object.assign(categoryList, categoryStore.getCategoryList)
+}
+onMounted(() => {
+  if (props.count == -1) {
+    getItemData()
+  }
 })
 </script>
 
 <style scoped lang="scss">
-.box-item{
+.box-item {
   display: flex;
   flex-direction: row;
   padding: 10px 0;
   border-bottom: 1px solid #ddd;
-  .cover{
-    width: 110px;
-    height: 110px;
-  }
-  .content{
+
+  .content {
     display: flex;
     flex-direction: column;
-    //justify-content: space-between;
     margin-left: 20px;
-    .content-title{
-      font-size: 15px;
+
+    .content-title {
+      font-size: 18px;
       color: #108b96;
     }
-    .content-summary{
+
+    .content-summary {
       word-break: break-all;
       margin: 12px 0;
       font-size: 14px;
@@ -62,15 +127,67 @@ const props = defineProps({
       white-space: normal;
       color: #999aaa;
       display: block;
-      overflow:hidden;
+      overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
+      //超出两行 就省略号
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
     }
+
+    .content-footer {
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      bottom: 10px;
+      top: 20px;
+      margin: 0;
+      font-size: 14px;
+      align-items: center;
+
+      .footer-time {
+        margin-right: 10px;
+      }
+
+      .footer-author, .footer-special, .footer-category {
+        display: flex;
+        margin-right: 10px;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .special, .author, .category {
+        color: #108b96;
+        font-size: 18px;
+      }
+    }
   }
-  .content:hover{
+
+  .content-title:hover, .author:hover, .special:hover, .category:hover {
     cursor: pointer;
+  }
+}
+
+.box-item:hover {
+  background-color: #eaeef1;
+}
+
+.small-item {
+  display: flex;
+  .small-content {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: 0 10px;
+    justify-content: space-between;
+    align-items: center;
+    .content-title {
+      color: #108b96;
+    }
+
+    .content-count {
+      color: #999aaa;
+    }
   }
 }
 </style>

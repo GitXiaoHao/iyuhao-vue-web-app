@@ -43,8 +43,11 @@ import {getSpecialListApi} from "@/apis/special";
 import {useSpecialStore} from "@/store/special";
 import {getArticleByListApi} from "@/apis/article";
 import {useArticleStore} from "@/store/article";
+import {getCategoryByListApi} from "@/apis/category";
+import {useCategoryStore} from "@/store/category";
 const specialStore = useSpecialStore()
 const articleStore = useArticleStore()
+const categoryStore = useCategoryStore()
 //列表
 const routerLink = reactive<RouterLinkType[]>([
   {
@@ -91,11 +94,18 @@ const getArticleListData = async () => {
     articleStore.setArticleList(res.data)
   }
 }
+const getCategoryListData = async () => {
+  const res:any = await getCategoryByListApi()
+  if(res.code == 200) {
+    categoryStore.setCategoryList(res.data)
+  }
+}
 
 
 const getData = async () => {
   await getSpecialListData()
   await getArticleListData()
+  await getCategoryListData()
 }
 
 
