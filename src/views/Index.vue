@@ -9,6 +9,7 @@
                    alt="" class="image">
             </div>
           </RouterLink>
+
           <div class="nav-menu">
             <RouterLink class="sub-menu-link"
                         :to="link.to"
@@ -35,10 +36,15 @@
 <script setup lang="ts">
 
 import Footer from "@/components/Footer.vue";
-import {reactive} from "vue";
+import {onMounted, reactive} from "vue";
 import {RouterLinkType} from "@/type/router";
 import SearchBox from "@/components/SearchBox.vue";
-
+import {getSpecialListApi} from "@/apis/special";
+import {useSpecialStore} from "@/store/special";
+import {getArticleByListApi} from "@/apis/article";
+import {useArticleStore} from "@/store/article";
+const specialStore = useSpecialStore()
+const articleStore = useArticleStore()
 //列表
 const routerLink = reactive<RouterLinkType[]>([
   {
@@ -67,6 +73,37 @@ const routerLink = reactive<RouterLinkType[]>([
     name: "留言板"
   },
 ])
+/**
+ * 获取专栏list
+ */
+const getSpecialListData = async () => {
+  const res:any = await getSpecialListApi()
+  if(res.code == 200) {
+    specialStore.setSpecialList(res.data)
+  }
+}
+/**
+ * 获取博客list
+ */
+const getArticleListData = async () => {
+  const res:any = await getArticleByListApi()
+  if(res.code == 200) {
+    articleStore.setArticleList(res.data)
+  }
+}
+
+
+const getData = async () => {
+  await getSpecialListData()
+  await getArticleListData()
+}
+
+
+
+onMounted(() => {
+  getData()
+})
+
 </script>
 
 <style scoped lang="scss">

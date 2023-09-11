@@ -1,11 +1,10 @@
 //
-// @/utils.http.js
 // 本项目的axios基础的封装
 //
 import axios from "axios";
 
 import {nextTick} from "vue";
-import {baseURL} from "../constant-pool";
+import {baseURL} from "@/constant-pool";
 import {appearLoading, appearMessage} from "./elementPlusUtils";
 
 
@@ -39,6 +38,8 @@ httpInstance.interceptors.request.use(function (config) {
         }
     }
     delete config.data['showLoading']
+    //如果是web端 不需要拦截
+    config.headers.web = true
     // 设置token start
     // let accessToken = userStore.getToken;
     // if (accessToken && accessToken !== '') {

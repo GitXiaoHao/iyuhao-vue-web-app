@@ -1,11 +1,10 @@
 import httpInstance from "@/utils/http";
 
-const articlePath = '/blogArticle/'
+const path = "/special/"
 
-
-export function getArticleByListApi() {
+export function getSpecialListApi () {
     return httpInstance({
-        url: articlePath + `list`,
+        url: path + `list`,
         method: 'get',
         data: {
             "showLoading": true
