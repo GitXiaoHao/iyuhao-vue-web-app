@@ -4,7 +4,7 @@ import App from './App.vue'
 import {setupRouter} from "@/router";
 import {setupStore} from "@/store";
 import {setupPlugins} from "@/plugins";
-
+import 'element-plus/dist/index.css';
 import './style.css'
 import 'animate.css'
 

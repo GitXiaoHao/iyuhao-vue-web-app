@@ -11,7 +11,32 @@ import type {App} from 'vue';
 
 
 const constantRoutes = [
-
+    {
+        path: '/',
+        name: 'index',
+        meta: {
+            title: "个人博客"
+        },
+        component: () => import("@/views/Index.vue"),
+        children: [
+            {
+                path: '/blog',
+                name: 'blog',
+                meta: {
+                    title: "博客"
+                },
+                component: () => import("@/views/blog/Index.vue"),
+            }
+        ]
+    },
+    {
+        path: '/login',
+        name: 'member',
+        meta: {
+            title: "登录"
+        },
+        component: () => import("@/views/member/Index.vue")
+    },
 ]
 
 
