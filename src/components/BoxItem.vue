@@ -4,7 +4,7 @@
       'width': coverWidth + 'px',
       'height': coverHeight + 'px'
     }">
-      <Cover :cover="cover"></Cover>
+      <Cover :cover="cover" :borderRadios="borderRadios"></Cover>
     </div>
     <div class="small-content" v-if="count != -1">
       <div class="content-title">
@@ -63,6 +63,10 @@ const props = defineProps({
   },
   cover: {
     type: String
+  },
+  borderRadios: {
+    type: String,
+    default: '0'
   },
   coverWidth: {
     type: String,
@@ -173,12 +177,13 @@ onMounted(() => {
 }
 
 .small-item {
+  margin-bottom: 10px;
   display: flex;
   .small-content {
     display: flex;
     flex-direction: row;
     width: 90%;
-    margin: 0 10px;
+    margin: 0 5px;
     justify-content: space-between;
     align-items: center;
     .content-title {

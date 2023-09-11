@@ -4,7 +4,7 @@ const path = "/category/"
 export function getCategoryByListApi(){
     return httpInstance({
         url: path + "list",
-        method: 'post',
+        method: 'get',
         data: {"showLoading": false}
     })
 }
