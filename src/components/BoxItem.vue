@@ -7,8 +7,13 @@
       <Cover :cover="cover" :borderRadios="borderRadios"></Cover>
     </div>
     <div class="small-content" v-if="count != -1">
-      <div class="content-title">
-        {{ title }}
+      <div class="content-main">
+        <div class="content-title">
+          {{ title }}
+        </div>
+        <div class="content-summary" v-if="summary">
+          {{summary}}
+        </div>
       </div>
       <div class="content-count">
         {{ count }}篇
@@ -186,8 +191,26 @@ onMounted(() => {
     margin: 0 5px;
     justify-content: space-between;
     align-items: center;
-    .content-title {
-      color: #108b96;
+    .content-main{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      .content-title {
+        color: #108b96;
+        display: block;
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .content-summary{
+        position: relative;
+        top: 0;
+        font-size: 14px;
+        color: #999aaa;
+        margin-top: 15px;
+      }
     }
 
     .content-count {
