@@ -12,3 +12,12 @@ export function getArticleByListApi() {
         }
     })
 }
+export function getArticleByIdApi(id: String) {
+    return httpInstance({
+        url: articlePath + `detail/${id}`,
+        method: 'get',
+        data: {
+            "showLoading": true
+        }
+    })
+}

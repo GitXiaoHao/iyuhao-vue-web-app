@@ -20,7 +20,11 @@
       </div>
     </div>
     <div v-else class="content">
-      <div class="content-title">{{ title }}</div>
+      <div class="content-title">
+        <RouterLink :to="toPath + '/' + toId" class="sub-menu-link">
+          {{ title }}
+        </RouterLink>
+      </div>
       <div class="content-summary">{{ summary }}</div>
       <div class="content-footer">
         <div class="footer-time">
@@ -66,9 +70,7 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  cover: {
-    type: String
-  },
+
   borderRadios: {
     type: String,
     default: '0'
@@ -81,19 +83,19 @@ const props = defineProps({
     type: String,
     default: '110'
   },
-
-  title: {
-    type: String
+  count: {
+    type: Number,
+    default: -1
   },
+  cover: String,
+  title: String,
   summary: String,
   time: String,
   author: String,
   specialId: String,
+  toId: String,
+  toPath:String,
   categoryName: String,
-  count: {
-    type: Number,
-    default: -1
-  }
 })
 
 const categoryStore = useCategoryStore()
@@ -122,28 +124,10 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     margin-left: 20px;
-
-    .content-title {
-      font-size: 18px;
-      color: #108b96;
-    }
-
-    .content-summary {
-      word-break: break-all;
+    .content-summary{
       margin: 12px 0;
-      font-size: 14px;
       line-height: 22px;
-      white-space: normal;
-      color: #999aaa;
-      display: block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      //超出两行 就省略号
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
     }
-
     .content-footer {
       display: flex;
       flex-direction: row;
@@ -171,15 +155,8 @@ onMounted(() => {
       }
     }
   }
-
-  .content-title:hover, .author:hover, .special:hover, .category:hover {
-    cursor: pointer;
-  }
 }
 
-.box-item:hover {
-  background-color: #eaeef1;
-}
 
 .small-item {
   margin-bottom: 10px;
@@ -196,26 +173,48 @@ onMounted(() => {
       flex-direction: column;
       justify-content: center;
       text-align: center;
-      .content-title {
-        color: #108b96;
-        display: block;
-        word-break: keep-all;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
       .content-summary{
         position: relative;
         top: 0;
-        font-size: 14px;
         color: #999aaa;
         margin-top: 15px;
       }
     }
-
     .content-count {
       color: #999aaa;
     }
   }
+}
+.box-item:hover, .small-item:hover{
+  background-color: #f0faff;
+}
+
+.content-title:hover, .author:hover, .special:hover, .category:hover {
+  cursor: pointer;
+}
+.content-summary {
+  word-break: break-all;
+  white-space: normal;
+  font-size: 14px;
+  color: #999aaa;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  //超出两行 就省略号
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.content-title {
+  color: #108b96 !important;
+  display: block;
+  word-break: keep-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sub-menu-link{
+  color: #108b96 !important;
+  text-decoration: none;
 }
 </style>

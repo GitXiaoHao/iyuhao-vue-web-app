@@ -39,19 +39,9 @@ import Footer from "@/components/Footer.vue";
 import {onMounted, reactive} from "vue";
 import {RouterLinkType} from "@/type/router";
 import SearchBox from "@/components/SearchBox.vue";
-import {getSpecialListApi} from "@/apis/special";
-import {useSpecialStore} from "@/store/special";
-import {getArticleByListApi} from "@/apis/article";
-import {useArticleStore} from "@/store/article";
-import {getCategoryByListApi} from "@/apis/category";
-import {useCategoryStore} from "@/store/category";
-import {getAdminListByApi} from "@/apis/admin";
-import {useMemberStore} from "@/store/member";
 
-const specialStore = useSpecialStore()
-const articleStore = useArticleStore()
-const categoryStore = useCategoryStore()
-const memberStore = useMemberStore()
+
+
 //列表
 const routerLink = reactive<RouterLinkType[]>([
   {
@@ -70,6 +60,11 @@ const routerLink = reactive<RouterLinkType[]>([
     name: "专题"
   },
   {
+    // label
+    to: "/label",
+    name: "标签"
+  },
+  {
     //member list
     to: "/ml",
     name: "成员"
@@ -80,48 +75,12 @@ const routerLink = reactive<RouterLinkType[]>([
     name: "留言板"
   },
 ])
-/**
- * 获取专栏list
- */
-const getSpecialListData = async () => {
-  const res: any = await getSpecialListApi()
-  if (res.code == 200) {
-    specialStore.setSpecialList(res.data)
-  }
-}
-/**
- * 获取博客list
- */
-const getArticleListData = async () => {
-  const res: any = await getArticleByListApi()
-  if (res.code == 200) {
-    articleStore.setArticleList(res.data)
-  }
-}
-const getCategoryListData = async () => {
-  const res: any = await getCategoryByListApi()
-  if (res.code == 200) {
-    categoryStore.setCategoryList(res.data)
-  }
-}
-const getAdminListData = async () => {
-  const res: any = await getAdminListByApi()
-  if (res.code == 200) {
-    memberStore.setMemberList(res.data)
-  }
-}
 
 
-const getData = async () => {
-  await getSpecialListData()
-  await getArticleListData()
-  await getCategoryListData()
-  await getAdminListData()
-}
 
 
 onMounted(() => {
-  getData()
+
 })
 
 </script>
@@ -172,7 +131,7 @@ onMounted(() => {
         }
 
         .sub-menu-link:hover {
-          color: #d5ebe1 !important;
+          color: #d4dde1 !important;
         }
 
         .active {
