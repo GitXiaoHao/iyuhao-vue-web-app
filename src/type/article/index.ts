@@ -71,17 +71,17 @@ export interface BlogArticleType {
     /**
      * 点赞次数
      */
-     blogArticleGoodNumber?:String
+     blogArticleGoodNumber?:Number
 
     /**
      * 观看次数
      */
-     blogArticleViewsNumber?:String
+     blogArticleViewsNumber?:Number
 
     /**
      * 收藏次数
      */
-     blogArticleFavoriteNumber?:String
+     blogArticleFavoriteNumber?:Number
 
     /**
      * 文章添加时间

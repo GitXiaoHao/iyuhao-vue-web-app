@@ -1,6 +1,6 @@
 <template>
   <div class="search-box">
-    <input type="text" class="search-txt" placeholder="想搜啥?" v-model="fuzzyQuery"/>
+    <input type="text" class="search-txt" placeholder="请输入想搜的文章" v-model="fuzzyQuery"/>
     <a class="search-btn" @click="submitSearch">
       <el-icon size="20">
         <Search />
@@ -24,6 +24,7 @@ const submitSearch = () => {
 .search-box{
   height: 40px;
   padding: 10px;
+  display: flex;
   border-radius: 40px;
   transform: translate(-50%,-50%);
   background-color: #2f3640;

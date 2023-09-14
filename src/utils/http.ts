@@ -37,7 +37,9 @@ httpInstance.interceptors.request.use(function (config) {
             loading = null
         }
     }
-    delete config.data['showLoading']
+    if(config.data['showLoading'] != null) {
+        delete config.data['showLoading']
+    }
     //如果是web端 不需要拦截
     config.headers.web = true
     // 设置token start

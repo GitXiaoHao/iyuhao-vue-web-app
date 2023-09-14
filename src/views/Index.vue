@@ -1,27 +1,32 @@
 <template>
   <el-container class="index-container">
-    <el-header class="animate__animated animate__fadeInDown header"
+    <transition enter-active-class="animate__animated animate__fadeInDown"
+                appear-active-class=""
+                leave-active-class="animate__animated animate__fadeOutUp"
     >
-      <div class="header-nav">
-        <RouterLink to="/">
-          <div class="nav-image">
-            <img src="src/assets/image/index/logo.png"
-                 alt="" class="image">
-          </div>
-        </RouterLink>
-
-        <div class="nav-menu">
-          <RouterLink class="sub-menu-link"
-                      :to="link.to"
-                      v-for="link in routerLink"
-          >{{ link.name }}
+      <el-header class="header" v-if="navShow"
+      >
+        <div class="header-nav">
+          <RouterLink to="/">
+            <div class="nav-image">
+              <img src="src/assets/image/index/logo.png"
+                   alt="" class="image">
+            </div>
           </RouterLink>
+
+          <div class="nav-menu">
+            <RouterLink class="sub-menu-link"
+                        :to="link.to"
+                        v-for="link in routerLink"
+            >{{ link.name }}
+            </RouterLink>
+          </div>
         </div>
-      </div>
-      <div class="header-content">
-        <SearchBox/>
-      </div>
-    </el-header>
+        <div class="header-content">
+          <SearchBox/>
+        </div>
+      </el-header>
+    </transition>
     <el-main class="animate__animated animate__fadeIn main">
       <RouterView/>
     </el-main>
@@ -36,10 +41,9 @@
 <script setup lang="ts">
 
 import Footer from "@/components/Footer.vue";
-import {onMounted, reactive} from "vue";
+import {onBeforeUnmount, onMounted, reactive, ref, watch} from "vue";
 import {RouterLinkType} from "@/type/router";
 import SearchBox from "@/components/SearchBox.vue";
-
 
 
 //列表
@@ -76,11 +80,21 @@ const routerLink = reactive<RouterLinkType[]>([
   },
 ])
 
-
-
-
+const top = ref<Number>()
+const navShow = ref(true)
+const handleScroll = () => {
+  top.value = document.documentElement.scrollTop || document.body.scrollTop
+}
+watch(top, (newValue, oldValue) => {
+  if (newValue > 100) {
+    navShow.value = newValue <= oldValue;
+  }
+}, {immediate: true, deep: true})
 onMounted(() => {
-
+  window.addEventListener('scroll', handleScroll, true)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll, true)
 })
 
 </script>
@@ -90,7 +104,7 @@ onMounted(() => {
   padding-top: 80px;
 
   .header {
-    width: 100vw;
+    width: 100%;
     height: 80px;
     background-color: #37424E;
     border-bottom: 1px solid #eaeef1;
@@ -98,6 +112,7 @@ onMounted(() => {
     position: fixed;
     top: 0;
     z-index: 5;
+    transition: all 1s;
 
     .header-nav {
       width: 1350px;
@@ -151,9 +166,10 @@ onMounted(() => {
 
   .main {
     height: auto;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     justify-content: center;
+    overflow-x: hidden;
   }
 
   .footer {

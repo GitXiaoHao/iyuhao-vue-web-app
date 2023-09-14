@@ -43,12 +43,28 @@ const constantRoutes = [
                 component: () => import("@/views/special-colum/Index.vue"),
             },
             {
+                path: '/cd/:blogCategoryId',
+                name: 'categoryDetail',
+                meta: {
+                    title: "分类详情"
+                },
+                component: () => import("@/views/special-colum/CategoryDetail.vue"),
+            },
+            {
                 path: '/ss',
                 name: 'specialSubject',
                 meta: {
                     title: "专题"
                 },
                 component: () => import("@/views/special-subject/Index.vue"),
+            },
+            {
+                path: '/sd/:blogSpecialId',
+                name: 'specialDetail',
+                meta: {
+                    title: "专题详情"
+                },
+                component: () => import("@/views/special-subject/SpecialDetail.vue"),
             },
             {
                 path: '/label',
@@ -103,6 +119,9 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
     }
 
     next()
+})
+router.afterEach((to,from,next)=>{
+    window.scrollTo(0,0)
 })
 
 

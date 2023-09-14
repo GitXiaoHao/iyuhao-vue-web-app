@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+/*滚动条*/
+::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track{
+  background: #f5f3f2;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb{
+  background: #bfbfbf;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover{
+  background: #bfbfbf;
+}
+::-webkit-scrollbar-corner{
+  background: #bfbfbf;
+}
+
+.right {
+  margin-left: 10px;
+  box-shadow: 2px 2px 2px 2px #ddd;
+  border-radius: 5px;
+  width: 300px;
+  top: 110px;
+  bottom: 220px;
+  position: fixed;
+  right: 60px;
+  overflow-y: scroll;
+  padding: 10px;
+  min-height: 500px;
+  .right-main {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+
+    .right-content-title {
+      margin: 20px 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+
+      .title-more,.sub-link {
+        color: #108b96 !important;
+        text-decoration: none;
+      }
+
+      .title-more:hover {
+        cursor: pointer;
+      }
+    }
+
+    .right-content-main {
+      margin: 0 0 0 10px;
+      padding-bottom: 10px;
+    }
+
+  }
+}

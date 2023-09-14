@@ -12,10 +12,8 @@ export const useCategoryStore = defineStore({
     }),
     actions: {
         setCategoryList(list:Array<CategoryType>){
-            if(list && list.length){
                 this.categoryList.length = 0
                 Object.assign(this.categoryList,list)
-            }
         }
     },
     getters: {

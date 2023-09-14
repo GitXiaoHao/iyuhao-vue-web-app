@@ -1,6 +1,6 @@
 <template>
-  <div class="icon-box">
-    <a href="#">
+  <div class="icon-box" @click="iconClick">
+    <a>
       <div class="layer">
         <span></span>
         <span></span>
@@ -10,7 +10,7 @@
       </div>
       <div class="text">QQ</div>
     </a>
-    <a href="#">
+    <a>
       <div class="layer">
         <span></span>
         <span></span>
@@ -20,7 +20,7 @@
       </div>
       <div class="text">微信</div>
     </a>
-    <a href="#">
+    <a>
       <div class="layer">
         <span></span>
         <span></span>
@@ -30,7 +30,7 @@
       </div>
       <div class="text">微博</div>
     </a>
-    <a href="#">
+    <a>
       <div class="layer">
         <span></span>
         <span></span>
@@ -40,7 +40,7 @@
       </div>
       <div class="text">推特</div>
     </a>
-    <a href="#">
+    <a>
       <div class="layer">
         <span></span>
         <span></span>
@@ -54,7 +54,11 @@
 </template>
 
 <script setup lang="ts">
+import {appearMessage} from "@/utils/elementPlusUtils";
 
+const iconClick = () => {
+  appearMessage.error("功能尚未开放，敬请期待！")
+}
 </script>
 
 <style scoped lang="scss">
@@ -78,6 +82,9 @@ body{
   display: block;
   /* 相对定位 */
   position: relative;
+}
+.icon-box a:hover{
+  cursor: pointer;
 }
 .icon-box a .layer{
   width: 70px;

@@ -9,7 +9,9 @@
     <div class="small-content" v-if="count != -1">
       <div class="content-main">
         <div class="content-title">
-          {{ title }}
+          <RouterLink :to="toPath + '/' + toId" class="sub-menu-link">
+            {{ title }}
+          </RouterLink>
         </div>
         <div class="content-summary" v-if="summary">
           {{summary}}
@@ -33,14 +35,22 @@
         <div class="footer-author">
           <template v-if="author">
             作者：
-            <div class="author">{{ author }}</div>
+            <div class="author">
+              <RouterLink :to="'md/' + authorId" class="sub-menu-link">
+                {{ author }}
+              </RouterLink>
+            </div>
           </template>
         </div>
         <div class="footer-special">
           <template v-for="item in specialList">
             <template v-if="item.blogSpecialId == specialId">
               专栏：
-              <div class="special">{{ item.blogSpecialName }}</div>
+              <div class="special">
+                <RouterLink :to="'sd/' + specialId" class="sub-menu-link">
+                  {{ item.blogSpecialName }}
+                </RouterLink>
+              </div>
             </template>
           </template>
         </div>
@@ -48,7 +58,9 @@
           <template v-if="categoryName">
             分类：
             <div class="category">
-              {{ categoryName }}
+              <RouterLink :to="'cd/' + categoryId" class="sub-menu-link">
+                {{ categoryName }}
+              </RouterLink>
             </div>
           </template>
         </div>
@@ -60,10 +72,10 @@
 <script setup lang="ts">
 import Cover from "@/components/Cover.vue";
 import {useSpecialStore} from "@/store/special";
-import {onMounted, reactive} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {SpecialType} from "@/type/special";
 import {useCategoryStore} from "@/store/category";
-import {CategoryType} from "@/type/category";
+import {useMemberStore} from "@/store/member";
 
 const props = defineProps({
   small: {
@@ -97,14 +109,27 @@ const props = defineProps({
   toPath:String,
   categoryName: String,
 })
-
+const authorId = ref('')
+const categoryId = ref('')
 const categoryStore = useCategoryStore()
 const specialStore = useSpecialStore()
+const memberStore = useMemberStore()
 const specialList = reactive<SpecialType[]>([])
-const categoryList = reactive<CategoryType[]>([])
 const getItemData = () => {
   Object.assign(specialList, specialStore.getSpecialList)
-  Object.assign(categoryList, categoryStore.getCategoryList)
+  memberStore.getMemberList.forEach(item => {
+    if(item.userName == props.author){
+      authorId.value = <string>item.userId
+      return
+    }
+  })
+  categoryStore.getCategoryList.forEach(item => {
+    if(item.blogCategoryName == props.categoryName){
+      categoryId.value = <string>item.blogCategoryId
+      return
+    }
+  })
+
 }
 onMounted(() => {
   if (props.count == -1) {

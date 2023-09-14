@@ -18,10 +18,8 @@ export const useSpecialStore = defineStore({
     },
     actions: {
         setSpecialList(list: Array<SpecialType>): void {
-            if (list && list.length != 0) {
-                this.specialList.length = 0
-                Object.assign(this.specialList, list)
-            }
+            this.specialList.length = 0
+            Object.assign(this.specialList, list)
         }
     }
 })

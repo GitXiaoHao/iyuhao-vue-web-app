@@ -18,10 +18,9 @@ export const useMemberStore = defineStore({
     },
     actions: {
         setMemberList(list: Array<MemberType>): void {
-            if (list && list.length != 0) {
+
                 this.memberList.length = 0
                 Object.assign(this.memberList, list)
-            }
         }
     }
 })

@@ -16,11 +16,15 @@
     </div>
     <div class="right">
       <div class="right-main" v-if="categoryList.length">
-        <div class="content-title">
+        <div class="right-content-title">
           <div class="title-main">分类专栏</div>
-          <div class="title-more">更多 >></div>
+          <div class="title-more">
+            <RouterLink to="/sc" class="sub-link">
+              更多 >>
+            </RouterLink>
+          </div>
         </div>
-        <div class="content-main">
+        <div class="right-content-main">
           <template v-for="(category,index) in categoryList">
             <BoxItem
                 :small="true"
@@ -31,17 +35,23 @@
                 borderRadios="10"
                 :cover="category.blogCategoryCover"
                 v-if="index <= maximumNumberOfDisplay"
+                :to-id="category.blogCategoryId"
+                to-path="/cd"
             >
             </BoxItem>
           </template>
         </div>
       </div>
       <div class="right-main" v-if="memberList.length">
-        <div class="content-title">
+        <div class="right-content-title">
           <div class="title-main">博客成员</div>
-          <div class="title-more">更多 >></div>
+          <div class="title-more">
+            <RouterLink to="/ml" class="sub-link">
+              更多 >>
+            </RouterLink>
+          </div>
         </div>
-        <div class="content-main">
+        <div class="right-content-main">
           <template v-for="(item,index) in memberList">
             <BoxItem
                 :small="true"
@@ -53,17 +63,23 @@
                 :cover="item.userCover"
                 v-if="index <= maximumNumberOfDisplay"
                 :summary="item.userRole"
+                :toId="item.userId"
+                toPath="/md"
             >
             </BoxItem>
           </template>
         </div>
       </div>
       <div class="right-main" v-if="specialList.length">
-        <div class="content-title">
+        <div class="right-content-title">
           <div class="title-main">专题</div>
-          <div class="title-more">更多 >></div>
+          <div class="title-more">
+            <RouterLink to="/ss" class="sub-link">
+              更多 >>
+            </RouterLink>
+          </div>
         </div>
-        <div class="content-main">
+        <div class="right-content-main">
           <template v-for="(item,index) in specialList">
             <BoxItem
                 :small="true"
@@ -74,6 +90,8 @@
                 borderRadios="10"
                 :cover="item.blogSpecialCover"
                 v-if="index <= maximumNumberOfDisplay"
+                :toId="item.blogSpecialId"
+                toPath="/sd"
             >
             </BoxItem>
           </template>
@@ -82,7 +100,7 @@
     </div>
   </div>
   <div v-else class="container-none">
-    <el-empty description="当前无博客内容" />
+    <el-empty description="当前无博客内容"/>
   </div>
 </template>
 
@@ -145,10 +163,16 @@ const getAdminListData = async () => {
 }
 
 const getData = async () => {
-  if(!articleStore.getArticleList.length){
+  if (!articleStore.getArticleList.length) {
     await getSpecialListData()
+  }
+  if (!articleStore.getArticleList.length) {
     await getArticleListData()
+  }
+  if (!categoryStore.getCategoryList.length) {
     await getCategoryListData()
+  }
+  if (!memberStore.getMemberList.length) {
     await getAdminListData()
   }
   //获取数据
@@ -173,60 +197,20 @@ onMounted(async () => {
   .left {
     //flex: 1;
     background-color: #faf9f9;
-    padding: 30px;
+    box-shadow: 0 6px 6px 0 #ddd;
+    padding: 10px;
     margin: 0;
     border-radius: 5px;
-    width: 750px;
+    width: 900px;
   }
 
-  .right {
-    margin-left: 10px;
-    border-radius: 5px;
-    background-color: #faf9f9;
-    width: 300px;
-    top: 110px;
-    bottom: 220px;
-    position: fixed;
-    right: 60px;
-    overflow-y: scroll;
-    padding: 10px;
-    min-height: 500px;
-
-    .right-main {
-      display: flex;
-      flex-direction: column;
-      height: auto;
-
-      .content-title {
-        margin: 20px 10px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 10px;
-
-        .title-more {
-          color: #108b96;
-        }
-
-        .title-more:hover {
-          cursor: pointer;
-        }
-      }
-
-      .content-main {
-        margin: 0 0 0 10px;
-        padding-bottom: 10px;
-      }
-    }
-  }
 }
-.container-none{
+
+.container-none {
   width: 100%;
   height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 </style>

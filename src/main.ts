@@ -5,9 +5,10 @@ import {setupRouter} from "@/router";
 import {setupStore} from "@/store";
 import {setupPlugins} from "@/plugins";
 import 'element-plus/dist/index.css';
-import './style.css'
+import 'highlight.js/styles/atom-one-dark.css'
+// import './style.css'
 import 'animate.css'
-
+import '@/assets/base.scss'
 
 async function setup(){
     const app = createApp(App);

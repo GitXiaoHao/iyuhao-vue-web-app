@@ -32,7 +32,7 @@ const props = defineProps({
   },
   borderRadios: {
     type: String,
-    default: "0"
+    default: '0'
   },
   fit: {
     type: String,
