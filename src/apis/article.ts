@@ -22,6 +22,15 @@ export function getArticleByIdApi(id: String) {
         }
     })
 }
+export function getArticleByFuzzyTitleApi(title: String) {
+    return httpInstance({
+        url: articlePath + `dfn/${title}`,
+        method: 'get',
+        data: {
+            "showLoading": true
+        }
+    })
+}
 export function getArticleByCategoryNameApi(name: String) {
     return httpInstance({
         url: articlePath + `dcn/${name}`,

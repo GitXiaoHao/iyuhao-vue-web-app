@@ -1,10 +1,11 @@
 <template>
+
   <div :class="small ? 'small-item' : 'box-item'">
     <div class="cover" :style="{
       'width': coverWidth + 'px',
       'height': coverHeight + 'px'
     }">
-      <Cover :cover="cover" :borderRadios="borderRadios"></Cover>
+      <Cover :cover="cover" :borderRadios="borderRadios ? borderRadios : '0'"></Cover>
     </div>
     <div class="small-content" v-if="count != -1">
       <div class="content-main">
@@ -67,6 +68,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup lang="ts">

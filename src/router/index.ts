@@ -16,11 +16,20 @@ const constantRoutes = [
         meta: {
             title: "个人博客"
         },
+        redirect: '/bm',
         component: () => import("@/views/Index.vue"),
         children: [
             {
-                path: '/blog',
+                path: '/bm',
                 name: 'blog',
+                meta: {
+                    title: "博客"
+                },
+                component: () => import("@/views/blog/Index.vue"),
+            },
+            {
+                path: '/blog/:blogArticleTitle',
+                name: 'blogFuzzy',
                 meta: {
                     title: "博客"
                 },
@@ -81,6 +90,14 @@ const constantRoutes = [
                     title: "成员"
                 },
                 component: () => import("@/views/member-list/Index.vue"),
+            },
+            {
+                path: '/md/:id',
+                name: 'memberDetail',
+                meta: {
+                    title: "成员详情"
+                },
+                component: () => import("@/views/member-list/MemberDetail.vue"),
             },
             {
                 path: '/mb',

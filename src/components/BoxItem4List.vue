@@ -5,7 +5,7 @@
       'width': coverWidth + 'px',
       'height': coverHeight + 'px'
     }">
-      <Cover :cover="cover" :borderRadios="borderRadios"></Cover>
+      <Cover :cover="cover" :borderRadios="borderRadios ? borderRadios : '0'"></Cover>
     </div>
     <RouterLink class="list-content" :to="toPath + '/' + toId">
       <div class="content-title">

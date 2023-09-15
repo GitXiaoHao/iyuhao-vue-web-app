@@ -173,7 +173,6 @@
 <script setup lang="ts">
 import {onBeforeMount, onMounted, reactive, ref} from "vue";
 import {FormInstance, FormRules} from "element-plus";
-import {appearMessage} from "@/utils/elementUtils";
 import {useRouter} from "vue-router";
 import {LoginMemberType, RegisterMemberType} from "@/type/member";
 import {
@@ -183,6 +182,7 @@ import {
   registerMemberApi,
   verificationCodeMailApi
 } from "@/apis/member";
+import {appearMessage} from "@/utils/elementPlusUtils";
 
 const fullscreenLoading = ref<boolean>(false)
 const ifRegister = ref<boolean>(false)

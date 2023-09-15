@@ -9,7 +9,7 @@
         <div class="header-nav">
           <RouterLink to="/">
             <div class="nav-image">
-              <img src="src/assets/image/index/logo.png"
+              <img src="@/assets/image/index/logo.png"
                    alt="" class="image">
             </div>
           </RouterLink>
@@ -17,6 +17,7 @@
           <div class="nav-menu">
             <RouterLink class="sub-menu-link"
                         :to="link.to"
+                        :style="{'display': link.disable ? 'none' : ''}"
                         v-for="link in routerLink"
             >{{ link.name }}
             </RouterLink>
@@ -50,7 +51,7 @@ import SearchBox from "@/components/SearchBox.vue";
 const routerLink = reactive<RouterLinkType[]>([
   {
 
-    to: "/blog",
+    to: "/bm",
     name: "博客"
   },
   {
@@ -63,11 +64,11 @@ const routerLink = reactive<RouterLinkType[]>([
     to: "/ss",
     name: "专题"
   },
-  {
-    // label
-    to: "/label",
-    name: "标签"
-  },
+  // {
+  //   // label
+  //   to: "/label",
+  //   name: "标签"
+  // },
   {
     //member list
     to: "/ml",
@@ -76,7 +77,8 @@ const routerLink = reactive<RouterLinkType[]>([
   {
     //Message Board
     to: "/mb",
-    name: "留言板"
+    name: "留言板",
+    disable: true
   },
 ])
 
